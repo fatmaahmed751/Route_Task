@@ -10,12 +10,15 @@ class ProductsScreenDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Image.asset(
-          'assets/images/routeacademy_logo-removebg-preview.png',
-          color: Colors.blue[800]!.withOpacity(0.9),
-          //  width:MediaQuery.sizeOf(context).width,
-          // height: 400,
-          // fit:BoxFit.cover,
+        leading: Container(
+          width:200,
+          child: Image.asset(
+            'assets/images/logo_app-removebg-preview.png',
+            // color: Colors.blue[800]!.withOpacity(0.9),
+            //  width:MediaQuery.sizeOf(context).width,
+            // height: 400,
+            fit:BoxFit.cover,
+          ),
         ),
       ),
       body: const Padding(

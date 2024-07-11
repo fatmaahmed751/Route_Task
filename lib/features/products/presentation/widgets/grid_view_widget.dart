@@ -1,32 +1,44 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:route_task/features/products/presentation/manager/cubit/product_states.dart';
 
 import '../../../../core/constants.dart';
+import '../../data/products_model/products_model.dart';
+import '../manager/cubit/product_cubit.dart';
 class GridViewWidget extends StatelessWidget{
   const GridViewWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SizedBox(
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 3/4.9,
-            mainAxisSpacing:17.0,
-            crossAxisSpacing:7.0,
-          ),
-          itemBuilder: (context, index) =>
-              productContainerDetails(),
+    return BlocBuilder<ProductsCubit,ProductsStates>(
+      builder: (BuildContext context, ProductsStates state) {
+        if (state is GetProductsSuccessState) {
+          return Expanded(
+            child: SizedBox(
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: 3 / 4.9,
+                  mainAxisSpacing: 17.0,
+                  crossAxisSpacing: 7.0,
+                ),
+                itemBuilder: (context, index) =>
+                    productContainerDetails(state.products[index]),
 
-          itemCount: 6,
-        ),
-      ),
+                itemCount: state.products.length,
+              ),
+            ),
+          );
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      }
     );
   }
-  Widget productContainerDetails()=>
+  Widget productContainerDetails(ProductsModel product)=>
       Container(
         // width: 218,
         // height: 275,
@@ -42,7 +54,7 @@ class GridViewWidget extends StatelessWidget{
               alignment: Alignment.topRight,
               children: [
                 Image.network(
-                  'https://i.pinimg.com/564x/72/d9/f4/72d9f40d08fa48d16e29ee1abcb8c901.jpg',
+                  product.image,
                   height: 150,
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -63,11 +75,11 @@ class GridViewWidget extends StatelessWidget{
                 )
               ],
             ),
-            const Text(
-              'Nike Shoes with\nred colors and black flexible for woman',
+             Text(
+              product.description,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              style: const TextStyle(
                   color: AppColors.descriptionColor,
                   fontSize: 14,
                   fontWeight: FontWeight.w600),
@@ -75,20 +87,20 @@ class GridViewWidget extends StatelessWidget{
             const SizedBox(
               height: 10,
             ),
-            const Row(
+             Row(
               children: [
                 Text(
-                  'EGP 1,200',
-                  style: TextStyle(
+                  'EGP ${product.price}',
+                  style: const TextStyle(
                       color: AppColors.descriptionColor,
                       fontWeight: FontWeight.w600),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 30,
                 ),
                 Text(
-                  '1,200 EGP',
-                  style: TextStyle(
+                  ' ${product.discountPercentage} EGP',
+                  style: const TextStyle(
                       decoration: TextDecoration.lineThrough,
                       color: AppColors.kPrimaryColor),
                 ),
@@ -99,9 +111,9 @@ class GridViewWidget extends StatelessWidget{
             ),
             Row(
               children: [
-                const Text(
-                  'Review (4.6)',
-                  style: TextStyle(
+                 Text(
+                  'Review (${product.rating})',
+                  style: const TextStyle(
                       color: AppColors.descriptionColor,
                       fontWeight: FontWeight.w400,
                       fontSize: 16),
