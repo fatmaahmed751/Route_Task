@@ -45,9 +45,12 @@ class SearchBarWidget extends StatelessWidget {
                 ),
                 // cursorColor: AppColors.grey,
                 onFieldSubmitted: (String value) {
+
                   print(value);
                   searchController.clear();
-                  ProductsCubit.get(context).fetchProductsData(value);
+
+                    ProductsCubit.get(context).fetchProductsData(value);
+
                 },
               ),
             ),

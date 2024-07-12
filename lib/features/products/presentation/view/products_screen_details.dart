@@ -9,22 +9,30 @@ class ProductsScreenDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Container(
-          width:200,
-          child: Image.asset(
-            'assets/images/logo_app-removebg-preview.png',
-            // color: Colors.blue[800]!.withOpacity(0.9),
-            //  width:MediaQuery.sizeOf(context).width,
-            // height: 400,
-            fit:BoxFit.cover,
-          ),
-        ),
-      ),
-      body: const Padding(
-        padding: EdgeInsets.only(left: 5.0,right: 5),
+      // appBar: AppBar(
+      //   leading: Container(
+      //     width:200,
+      //     child: Image.asset(
+      //       'assets/images/logo_app-removebg-preview.png',
+      //       fit:BoxFit.cover,
+      //     ),
+      //   ),
+      // ),
+      body:  Padding(
+        padding: const EdgeInsets.only(left: 5.0,right: 5),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const SizedBox(height:45,),
+            Container(
+                width:100,
+                child: Image.asset(
+                  'assets/images/logo_app-removebg-preview.png',
+                  fit:BoxFit.cover,
+                  alignment: Alignment.topLeft,
+                ),
+              ),
+            const SizedBox(height: 10,),
             SearchBarWidget(),
             GridViewWidget()
           ],

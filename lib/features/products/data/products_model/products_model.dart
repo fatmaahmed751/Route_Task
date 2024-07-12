@@ -1,9 +1,9 @@
 class ProductsModel{
   final String image;
   final String description;
-  final double price;
-  final double discountPercentage;
-  final double rating;
+  final num  price;
+  final num  discountPercentage;
+  final num  rating;
 
   ProductsModel({
   required this.image,
@@ -13,14 +13,22 @@ class ProductsModel{
       required this.rating,
       });
 
-  factory ProductsModel.fromJson(Map<String,dynamic> json )=>
-    ProductsModel(
-      image :json['image'],
-        description :json['description'],
-      price :json['price'],
-        discountPercentage :json['discountPercentage'],
-        rating :json['rating'],
+  factory ProductsModel.fromJson(Map<String,dynamic> json ){
+
+    var priceValue = json["price"];
+    num price = priceValue is int ? priceValue.toDouble() : priceValue;
+    var discount = json["discountPercentage"];
+    num discountPercentage = discount is int ? discount.toDouble() : discount;
+    var ratePercent = json["rating"];
+    num rate = ratePercent is int ? ratePercent.toDouble() : ratePercent;
+
+     return ProductsModel(
+      image: json["thumbnail"],
+      description: json["description"],
+      price: price,
+      discountPercentage:discountPercentage,
+      rating:rate,
 
     );
-
+  }
 }

@@ -8,35 +8,60 @@ import '../../../../core/utils/api_services.dart';
 
 class ProductsRepoImplement implements ProductsRepo {
 
- ApiServices apiServices;
- ProductsRepoImplement(this.apiServices);
+  ApiServices apiServices;
+
+  ProductsRepoImplement(this.apiServices);
+
 
   @override
-  Future<Either<Failure, List<ProductsModel>>> fetchSearchProducts(String value)async {
-
+  Future<Either<Failure, List<ProductsModel>>> fetchSearchProducts(
+      String value) async {
     try {
-      var data = await
+      var data = await apiServices.getSearch(value: value);
 
-      apiServices.get(
-          endPoint:value
+      if (data.containsKey('products') && data['products'] is List) {
+        List<dynamic> productsData = data['products'];
 
-      );
-      List<ProductsModel>productsList = [];
-      for (var products in data['items']) {
-       productsList.add(ProductsModel.fromJson(products));
+        List<ProductsModel> productModel = productsData.map((product) =>
+            ProductsModel.fromJson(product)).toList();
+
+        return Right(productModel);
+      } else {
+        return Left(ServerFailure('Products data is invalid'));
       }
-      print('llllllllllllllllllllllllll');
-      print(productsList);
-      print('llllllllllllllllllllllllll');
-      return right(productsList);
     } catch (e) {
       if (e is DioException) {
-        print(e.toString());
-        return left(ServerFailure('Opps There was an Error,please try again'));
-        //  return left(ServerFailure.fromDioException(e));
+        // Handle DioError specifically (e.g., network issues, timeout, etc.)
+        print('Dio error: $e');
+        return Left(ServerFailure.fromDioException(e));
+      } else {
+        // Handle other types of exceptions
+        print('General error: $e');
+        return Left(
+            ServerFailure('Oops! There was an error. Please try again.'));
       }
-      return left(ServerFailure.fromDioException(e.toString() as DioException));
     }
   }
-  }
+// try {
+//   print('hellllllllllllllllllo');
+//  var data = await apiServices.getSearch();
+//   List<ProductsModel>productModel=[];
+//       for (var product in data['products'] ) {
+//         productModel.add(ProductsModel.fromJson(product));
+//       }
+//       print('hellllllllllhhhhhllllllllo');// Call the modified getSearch
+//       return right(productModel);
+// } catch (e) {
+//   if (e is DioException) {
+//     print(e.toString().toString());
+//     return left(ServerFailure.fromDioException(e).toString() as Failure);
+//
+//   }
+//   // If it's not a DioException, handle it accordingly
+//   return left(ServerFailure('Opps There was an Error, Please try again'));
+// }
+// }
+
+
+}
 

@@ -18,6 +18,7 @@ class GridViewWidget extends StatelessWidget{
         if (state is GetProductsSuccessState) {
           return Expanded(
             child: SizedBox(
+
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -25,10 +26,13 @@ class GridViewWidget extends StatelessWidget{
                   mainAxisSpacing: 17.0,
                   crossAxisSpacing: 7.0,
                 ),
-                itemBuilder: (context, index) =>
-                    productContainerDetails(state.products[index]),
 
-                itemCount: state.products.length,
+            itemBuilder: (context, index) =>
+
+              productContainerDetails(state.products[index]),
+
+                itemCount:
+                state.products.length
               ),
             ),
           );
