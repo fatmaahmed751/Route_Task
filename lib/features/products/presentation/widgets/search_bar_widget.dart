@@ -3,8 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:route_task/features/products/presentation/manager/cubit/product_cubit.dart';
 import 'package:route_task/features/products/presentation/manager/cubit/product_states.dart';
-
-import '../../../../core/constants.dart';
+import '../../../../core/utils/constants.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key});
@@ -45,12 +44,8 @@ class SearchBarWidget extends StatelessWidget {
                 ),
                 // cursorColor: AppColors.grey,
                 onFieldSubmitted: (String value) {
-
-                  print(value);
-                  searchController.clear();
-
-                    ProductsCubit.get(context).fetchProductsData(value);
-
+                  ProductsCubit.get(context).fetchProductsData(value);
+                 searchController.clear();
                 },
               ),
             ),

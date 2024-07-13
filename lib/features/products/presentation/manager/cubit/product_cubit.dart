@@ -12,13 +12,16 @@ class ProductsCubit extends Cubit<ProductsStates> {
 
   Future<void> fetchProductsData(String value) async{
     emit(GetProductsLoadingState());
+    try{
+
     var result = await productsRepo.fetchSearchProducts(value);
     result.fold((failure) =>
         emit(GetProductsErrorState(failure.errMessage)),
-
             (products) => emit(GetProductsSuccessState(products)));
-  print(result.fold((l) => l.toString(), (r) => r));
-
+  }catch(e)
+    {
+      emit(GetProductsErrorState("failure.errMessage"));
+    }
   }
 
 

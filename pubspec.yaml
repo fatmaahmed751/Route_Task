@@ -39,6 +39,7 @@ dependencies:
   dio: ^5.4.0
   font_awesome_flutter: ^10.6.0
   dartz: ^0.10.1
+  get_it: ^7.7.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

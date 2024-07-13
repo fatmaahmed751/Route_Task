@@ -31,36 +31,17 @@ class ProductsRepoImplement implements ProductsRepo {
       }
     } catch (e) {
       if (e is DioException) {
-        // Handle DioError specifically (e.g., network issues, timeout, etc.)
+
         print('Dio error: $e');
         return Left(ServerFailure.fromDioException(e));
       } else {
-        // Handle other types of exceptions
         print('General error: $e');
         return Left(
             ServerFailure('Oops! There was an error. Please try again.'));
       }
     }
   }
-// try {
-//   print('hellllllllllllllllllo');
-//  var data = await apiServices.getSearch();
-//   List<ProductsModel>productModel=[];
-//       for (var product in data['products'] ) {
-//         productModel.add(ProductsModel.fromJson(product));
-//       }
-//       print('hellllllllllhhhhhllllllllo');// Call the modified getSearch
-//       return right(productModel);
-// } catch (e) {
-//   if (e is DioException) {
-//     print(e.toString().toString());
-//     return left(ServerFailure.fromDioException(e).toString() as Failure);
-//
-//   }
-//   // If it's not a DioException, handle it accordingly
-//   return left(ServerFailure('Opps There was an Error, Please try again'));
-// }
-// }
+
 
 
 }
