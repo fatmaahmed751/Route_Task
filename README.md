@@ -8,12 +8,6 @@
 # project structure
 ![st](https://github.com/user-attachments/assets/440705d6-afe4-4b23-b6b0-3dd7ff13ba39)
 
-#package used 
-#flutter_bloc: ^8.1.3
-dio: ^5.4.0
-font_awesome_flutter: ^10.6.0
-dartz: ^0.10.1
-get_it: ^7.7.0
 
 
 
